@@ -14,6 +14,7 @@ namespace PatternLab;
 
 use \PatternLab\Config;
 use \PatternLab\Console;
+use PatternLab\PatternData\PatternLocator;
 use \PatternLab\Timer;
 
 class Template {
@@ -98,15 +99,15 @@ class Template {
 	/*
 	 * Get the pattern header
 	 */
-	public static function getPatternHead() {
-		return self::$patternHead;
+	public static function getPatternHead($breadcrumb = null) {
+	    return PatternLocator::locateHead($breadcrumb);
 	}
 	
 	/*
 	 * Get the pattern footer
 	 */
-	public static function getPatternFoot() {
-		return self::$patternFoot;
+	public static function getPatternFoot($breadcrumb = null) {
+		return PatternLocator::locateFoot($breadcrumb);
 	}
 	
 	/*

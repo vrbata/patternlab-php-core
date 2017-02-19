@@ -42,8 +42,6 @@ class PatternCodeHelper extends \PatternLab\PatternData\Helper {
 		$patternSourceDir        = Config::getOption("patternSourceDir");
 		$htmlHead                = Template::getHTMLHead();
 		$htmlFoot                = Template::getHTMLFoot();
-		$patternHead             = Template::getPatternHead();
-		$patternFoot             = Template::getPatternFoot();
 		$stringLoader            = Template::getStringLoader();
 		
 		// re-load the pattern data since we modified it
@@ -84,7 +82,9 @@ class PatternCodeHelper extends \PatternLab\PatternData\Helper {
 				$data["patternLabFoot"]           = (!$this->exportFiles) ? $stringLoader->render(array("string" => $htmlFoot, "data" => array("cacheBuster" => $data["cacheBuster"], "isPattern" => true, "patternData" => json_encode($patternData)))) : "";
 				
 				if (isset($patternStoreData["patternRaw"])) {
-					
+                    $patternHead = Template::getPatternHead($patternStoreData['breadcrumb']);
+                    $patternFoot = Template::getPatternFoot($patternStoreData['breadcrumb']);
+
 					$header  = (!$this->exportClean) ? $patternLoader->render(array("pattern" => $patternHead, "data" => $data)) : "";
 					$code    = $patternLoader->render(array("pattern" => $patternStoreData["patternRaw"], "data" => $data));
 					$footer  = (!$this->exportClean) ? $patternLoader->render(array("pattern" => $patternFoot, "data" => $data)) : "";
